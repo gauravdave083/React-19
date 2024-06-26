@@ -1,6 +1,7 @@
 # React-19
 
 What’s new in React 19 
+
 Actions 
 A common use case in React apps is to perform a data mutation and then update state in response. For example, when a user submits a form to change their name, you will make an API request, and then handle the response. In the past, you would need to handle pending states, errors, optimistic updates, and sequential requests manually.
 
@@ -33,8 +34,9 @@ function UpdateName({}) {
     </div>
   );
 }
-In React 19, we’re adding support for using async functions in transitions to handle pending states, errors, forms, and optimistic updates automatically.
 
+
+In React 19, we’re adding support for using async functions in transitions to handle pending states, errors, forms, and optimistic updates automatically.
 For example, you can use useTransition to handle the pending state for you:
 
 // Using pending state from Actions
@@ -64,9 +66,11 @@ function UpdateName({}) {
     </div>
   );
 }
+
+
 The async transition will immediately set the isPending state to true, make the async request(s), and switch isPending to false after any transitions. This allows you to keep the current UI responsive and interactive while the data is changing.
 
-Note
+Note:
 By convention, functions that use async transitions are called “Actions”. 
 Actions automatically manage submitting data for you:
 
@@ -100,6 +104,7 @@ function ChangeName({ name, setName }) {
     </form>
   );
 }
+
 In the next section, we’ll break down each of the new Action features in React 19.
 
 New hook: useActionState 
@@ -113,18 +118,17 @@ const [error, submitAction, isPending] = useActionState(
       // Here, we return only the error.
       return error;
     }
-
-    // handle success
     return null;
   },
   null,
 );
+
+
 useActionState accepts a function (the “Action”), and returns a wrapped Action to call. This works because Actions compose. When the wrapped Action is called, useActionState will return the last result of the Action as data, and the pending state of the Action as pending.
 
 Note
 React.useActionState was previously called ReactDOM.useFormState in the Canary releases, but we’ve renamed it and deprecated useFormState.
 
-See #28491 for more info.
 
 For more information, see the docs for useActionState.
 
